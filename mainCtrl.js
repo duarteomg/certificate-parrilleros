@@ -5,9 +5,11 @@ const Jimp = require('jimp');
 exports.sendEmail = async function (req, res) {
   const { name, certificate, email } = req.body;
   console.log('variables: ', name, certificate, email);
-  console.log(auth: {
-    user: process.env.EMAIL,
-    pass: process.env.PASSWORD_EMAIL
+  console.log({
+    auth: {
+      user: process.env.EMAIL,
+      pass: process.env.PASSWORD_EMAIL
+    }
   })
   //if you are following along, create the following 2 images relative to this script:
   //let imgRaw = ' https://containerwanda.s3-us-west-2.amazonaws.com/Cerficadov2.jpg'; //a 1024px x 1024px backgroound image
