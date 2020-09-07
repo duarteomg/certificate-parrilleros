@@ -4,13 +4,6 @@ const Jimp = require('jimp');
 // email sender function
 exports.sendEmail = async function (req, res) {
   const { name, certificate, email } = req.body;
-  console.log('variables: ', name, certificate, email);
-  console.log({
-    auth: {
-      user: process.env.EMAIL,
-      pass: process.env.PASSWORD_EMAIL
-    }
-  })
   //if you are following along, create the following 2 images relative to this script:
   //let imgRaw = ' https://containerwanda.s3-us-west-2.amazonaws.com/Cerficadov2.jpg'; //a 1024px x 1024px backgroound image
   let imgRaw = certificate;
@@ -207,13 +200,15 @@ exports.sendEmail = async function (req, res) {
     //catch errors
     .catch(err => {
       console.error(err);
+      res.send({ error: true, message: 'Error image' });
     });
-  // Definimos el transporter
+
   const transporter = nodemailer.createTransport({
-    service: 'Gmail',
+    host: process.env.SMTP_SERVER,
+    port: process.env.SMTP_PORT,
     auth: {
       user: process.env.EMAIL,
-      pass: process.env.PASSWORD_EMAIL
+      pass: process.env.PASSWORD_EMAIL,
     }
   });
   // Definimos el email
@@ -232,11 +227,11 @@ exports.sendEmail = async function (req, res) {
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
       console.log(error);
-      res.send(500, error.message);
+      res.send({ error: true, message: 'Error email' });
     } else {
       //read template & clone raw image 
       console.log("Email sent");
-      res.status(200).send(req.body);
+      res.send({ error: false, message: 'Email sent' });
     }
   });
 };
