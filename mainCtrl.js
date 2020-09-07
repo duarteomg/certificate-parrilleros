@@ -2,7 +2,7 @@ const nodemailer = require('nodemailer');
 const Jimp = require('jimp');
 
 // email sender function
-exports.sendEmail = function (req, res) {
+exports.sendEmail = async function (req, res) {
   const { name, certificate, email } = req.body;
   console.log('variables: ', name, certificate, email);
   //if you are following along, create the following 2 images relative to this script:
@@ -160,7 +160,7 @@ exports.sendEmail = function (req, res) {
 </html>`;
 
 
-  Jimp.read({
+  await Jimp.read({
     url: imgRaw, // Required!
     headers: {
       rejectUnauthorized: false
