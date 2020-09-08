@@ -11,7 +11,7 @@ exports.sendEmail = async function (req, res) {
   let imgExported = './image1.jpg';
 
   let textData = {
-    text: name, //the text to be rendered on the image
+    text: name.toUpperCase(), //the text to be rendered on the image
     maxWidth: 450, //image width - 10px margin left - 10px margin right
     maxHeight: 72 + 20, //logo height + margin
     placementX: 400, // 10px in on the x axis
