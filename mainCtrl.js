@@ -6,8 +6,6 @@ exports.sendEmail = async function (req, res) {
   const { name, certificate, email } = req.body;
   //if you are following along, create the following 2 images relative to this script:
   //let imgRaw = ' https://containerwanda.s3-us-west-2.amazonaws.com/Cerficadov2.jpg'; //a 1024px x 1024px backgroound image
-  let imgRaw = certificate;
-  //---
 
   let imgActive = './image.jpg';
   let imgExported = './image1.jpg';
@@ -160,7 +158,7 @@ exports.sendEmail = async function (req, res) {
 
 
   await Jimp.read({
-    url: imgRaw, // Required!
+    url: certificate, // Required!
     headers: {
       rejectUnauthorized: false
     },
@@ -199,8 +197,8 @@ exports.sendEmail = async function (req, res) {
 
     //catch errors
     .catch(err => {
-      console.error(err);
-      res.send({ error: true, message: 'Error image' });
+      console.error('::errorr:: ', err);
+      res.send({ error: true, message: err.message });
     });
 
   const transporter = nodemailer.createTransport({

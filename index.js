@@ -8,7 +8,7 @@ const EmailCtrl = require('./mainCtrl');
 app.use(bodyParser.json());
 
 //email route
-app.post('/', EmailCtrl.sendEmail);
+app.post('/email', EmailCtrl.sendEmail);
 
 app.listen(PORT, () => {
   console.log('server running on port ', PORT);
