@@ -156,13 +156,14 @@ exports.sendEmail = async function (req, res) {
 
 </html>`;
 
+  const mailOptions = {
+    from: 'Remitente',
+    to: email,
+    subject: `Certificado Parrilleros, ¡Felicidades ${name}!`,
+    html: htmlString,
+  };
 
-  await Jimp.read({
-    url: certificate, // Required!
-    headers: {
-      rejectUnauthorized: false
-    },
-  })
+  await Jimp.read(certificate)
     .then(tpl => (tpl.clone().write(imgActive)))
 
     //read cloned (active) image
@@ -193,6 +194,11 @@ exports.sendEmail = async function (req, res) {
     //log exported filename
     .then(tpl => {
       console.log('exported file: ' + imgExported);
+      mailOptions.attachments = [
+        {   // filename and content type is derived from path
+          path: imgExported,
+        },
+      ];
     })
 
     //catch errors
@@ -210,17 +216,7 @@ exports.sendEmail = async function (req, res) {
     }
   });
   // Definimos el email
-  const mailOptions = {
-    from: 'Remitente',
-    to: email,
-    subject: `Certificado Parrilleros, ¡Felicidades ${name}!`,
-    html: htmlString,
-    attachments: [
-      {   // filename and content type is derived from path
-        path: imgExported,
-      },
-    ],
-  };
+
   // Enviamos el email
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
