@@ -18,7 +18,7 @@ const corsOptionsDelegate = function (req, callback) {
   callback(null, corsOptions) // callback expects two parameters: error and options
 }
 
-app.use(cors('http://localhost:3000'));
+app.use(cors());
 
 //email route
 app.post('/email', EmailCtrl.sendEmail);
