@@ -7,9 +7,9 @@ const PORT = process.env.PORT || 4000;
 const EmailCtrl = require('./mainCtrl');
 
 app.use(bodyParser.json());
-const whitelist = ['http://example1.com', 'http://example2.com']
+const whitelist = ['http://localhost:3000', 'https://parrillerosvictoria.com'];
 const corsOptionsDelegate = function (req, callback) {
-  var corsOptions;
+  let corsOptions;
   if (whitelist.indexOf(req.header('Origin')) !== -1) {
     corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
   } else {
