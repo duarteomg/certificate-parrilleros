@@ -30,4 +30,4 @@ app.listen(PORT, () => {
 // emisor de particulas
 // capa de agua opcidad-10%
 // capa burbujas atrás
-// logo 
+// logo  
