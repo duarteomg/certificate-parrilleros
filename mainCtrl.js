@@ -70,6 +70,7 @@ exports.sendEmail = async function (req, res) {
 
   const img = await nodeHtmlToImage({
     html: htmlString,
+    puppeteerArgs: { args: ["--no-sandbox", "--disable-setuid-sandbox"] }
   })
 
   const mailOptions = {
