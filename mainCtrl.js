@@ -1,5 +1,4 @@
 const nodemailer = require('nodemailer');
-const puppeteer = require('puppeteer');
 const nodeHtmlToImage = require('node-html-to-image');
 
 // email sender function
