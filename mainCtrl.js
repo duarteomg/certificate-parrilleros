@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+const puppeteer = require('puppeteer');
 const nodeHtmlToImage = require('node-html-to-image');
 
 // email sender function
@@ -9,7 +10,7 @@ exports.sendEmail = async function (req, res) {
     res.send({ error: true, message: 'debe enviar { name: "name", certificate: "url con imagen", email: "email@ejemplo.com"}' })
   }
 
-  // await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+  await puppeteer.launch({ args: ['--no-sandbox'] });
 
   const htmlString = `<!DOCTYPE html>
   <html lang="en">
