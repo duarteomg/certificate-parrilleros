@@ -26,3 +26,8 @@ app.post('/email', EmailCtrl.sendEmail);
 app.listen(PORT, () => {
   console.log('server running on port ', PORT);
 })
+
+// emisor de particulas
+// capa de agua opcidad-10%
+// capa burbujas atrás
+// logo 
