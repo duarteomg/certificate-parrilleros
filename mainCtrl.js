@@ -69,12 +69,12 @@ exports.sendEmail = async function (req, res) {
   </body>
   
   </html>`;
-
+  console.log('here 1');
   const img = await nodeHtmlToImage({
     html: htmlString,
     puppeteerArgs: { args: ["--no-sandbox"] },
   })
-
+  console.log('here 2');
   const mailOptions = {
     from: 'Remitente',
     to: email,
@@ -87,6 +87,8 @@ exports.sendEmail = async function (req, res) {
       },
     ],
   };
+
+  console.log('here 3', mailOptions);
 
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_SERVER,
