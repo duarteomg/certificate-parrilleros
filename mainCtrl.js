@@ -74,11 +74,8 @@ exports.sendEmail = async function (req, res) {
   await nodeHtmlToImage({
     output: fileName,
     html: htmlString,
-  });
-  //if you are following along, create the following 2 images relative to this script:
-  //let imgRaw = ' https://containerwanda.s3-us-west-2.amazonaws.com/Cerficadov2.jpg'; //a 1024px x 1024px backgroound image
-
-
+  }).then(() => console.log('all ok'))
+    .catch((err) => console.error('err:::: ', err.message))
 
   const mailOptions = {
     from: 'Remitente',
