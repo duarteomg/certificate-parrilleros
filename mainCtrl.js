@@ -1,7 +1,6 @@
 const nodemailer = require('nodemailer');
 const { uuid } = require('uuidv4');
 const nodeHtmlToImage = require('node-html-to-image');
-const fs = require('fs');
 
 // email sender function
 exports.sendEmail = async function (req, res) {
@@ -10,8 +9,6 @@ exports.sendEmail = async function (req, res) {
   if (!name || !certificate || !email) {
     res.send({ error: true, message: 'debe enviar { name: "name", certificate: "url con imagen", email: "email@ejemplo.com"}' })
   }
-
-  const fileName = `${uuid()}.png`;
 
   const htmlString = `<!DOCTYPE html>
   <html lang="en">
@@ -71,11 +68,9 @@ exports.sendEmail = async function (req, res) {
   
   </html>`;
 
-  await nodeHtmlToImage({
-    output: fileName,
+  const img = await nodeHtmlToImage({
     html: htmlString,
-  }).then(() => console.log('all ok'))
-    .catch((err) => console.error('err:::: ', err.message))
+  })
 
   const mailOptions = {
     from: 'Remitente',
@@ -84,7 +79,8 @@ exports.sendEmail = async function (req, res) {
     html: htmlString,
     attachments: [
       {   // filename and content type is derived from path
-        path: `./${fileName}`,
+        filename: 'certificado.png',
+        content: Buffer.from(img, 'base64'),
       },
     ],
   };
@@ -103,19 +99,10 @@ exports.sendEmail = async function (req, res) {
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
       console.log(error);
-      console.log(error);
-      fs.unlink(`./${fileName}`, (err) => {
-        if (err) console.log(err);
-        console.log('file removed')
-      });
       res.send({ error: true, message: 'Error email' });
     } else {
       //read template & clone raw image 
       console.log("Email sent");
-      fs.unlink(`./${fileName}`, (err) => {
-        if (err) console.log(err);
-        console.log('file removed')
-      });
       res.send({ error: false, message: 'Email sent' });
     }
   });
