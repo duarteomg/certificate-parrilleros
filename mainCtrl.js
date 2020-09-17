@@ -29,7 +29,6 @@ exports.sendEmail = async function (req, res) {
       .container {
         min-width: 100%;
         height: 100%;
-        position: relative;
         margin: 0;
         padding: 0;
       }
@@ -44,6 +43,12 @@ exports.sendEmail = async function (req, res) {
       img {
         width: 100;
       }
+
+      h1 {
+        font-family: 'Anton', sans-serif;
+        color=#F6A902;
+        text-align: center;
+      }
   
       p {
         text-align: center;
@@ -51,7 +56,7 @@ exports.sendEmail = async function (req, res) {
         position: absolute;
         top: 40%;
         font-size: 40px;
-        color: #F6A902;
+        color: Black;
         width: 100%;
         font-family: 'Anton', sans-serif;
       }
@@ -60,10 +65,8 @@ exports.sendEmail = async function (req, res) {
   
   <body>
     <div class="container">
-      <figure class="cont-cert">
-        <img src=${certificate} />
-        <p>${name}</p>
-      </figure>
+      <h1>¡Felicidades!</h1>
+      <p>¡Hola <span color="#F6A902">${name}</span> has sido certificado como un parrillero victoria!</p>
     </div>
   </body>
   
