@@ -11,6 +11,11 @@ exports.sendEmail = async function (req, res) {
 
   // await puppeteer.launch({ args: ['--no-sandbox'] });
 
+  const img = await nodeHtmlToImage({
+    html: htmlString,
+    puppeteerArgs: { args: ["--no-sandbox"] },
+  })
+
   const htmlString = `<!DOCTYPE html>
   <html lang="en">
   
@@ -35,30 +40,32 @@ exports.sendEmail = async function (req, res) {
   
       .cont-cert {
         width: 100%;
-        height: 100%;
+        max-width: 600px;
         margin: 0;
         padding: 0;
       }
   
       img {
-        width: 100;
+        width: 100%;
       }
 
       h1 {
         font-family: 'Anton', sans-serif;
-        color=#F6A902;
+        color: #F6A902;
         text-align: center;
+        font-size: 40px;
       }
   
       p {
         text-align: center;
         text-transform: uppercase;
-        position: absolute;
-        top: 40%;
         font-size: 40px;
         color: Black;
-        width: 100%;
         font-family: 'Anton', sans-serif;
+      }
+
+      span {
+        color: #F6A902;
       }
     </style>
   </head>
@@ -66,16 +73,14 @@ exports.sendEmail = async function (req, res) {
   <body>
     <div class="container">
       <h1>¡Felicidades!</h1>
-      <p>¡Hola <span color="#F6A902">${name}</span> has sido certificado como un parrillero victoria!</p>
+      <p>¡Hola <span>${name}</span> has sido certificado como un parrillero victoria!</p>
+      <figure class="cont-cert">
+        <img src=${Buffer.from(img, 'base64')} />
+      </figure>
     </div>
   </body>
   
   </html>`;
-
-  const img = await nodeHtmlToImage({
-    html: htmlString,
-    puppeteerArgs: { args: ["--no-sandbox"] },
-  })
 
   const mailOptions = {
     from: '"Parrilleros Victoria " <annalect@omg.com.gt>',
