@@ -132,9 +132,6 @@ exports.sendEmail = async function (req, res) {
     <div class="container">
       <h1>¡Felicidades!</h1>
       <p>¡Hola <span>${name}</span> has sido certificado como un parrillero victoria!</p>
-      <figure class="cont-cert">
-        <img src=${Buffer.from(img, 'base64')} />
-      </figure>
     </div>
   </body>
   
